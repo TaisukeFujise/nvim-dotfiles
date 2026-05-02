@@ -141,8 +141,10 @@ return
                 },
             })
             -- 2. C/C++ (clangd) の設定
-            lspconfig.clangd.setup({
-				})
+            lspconfig.clangd.setup({})
+
+            -- 3. Go (gopls) の設定
+            lspconfig.gopls.setup({})
 
             -- 3. エラー表示の見た目設定
             vim.diagnostic.config({
@@ -206,7 +208,10 @@ return
 			},
 			dependencies={
 				{"MunifTanjim/nui.nvim", pin=true},
-				"rcarriga/nvim-notify",
+				{
+					"rcarriga/nvim-notify",
+					opts = { background_colour = "#1F2328" },
+				},
 			},
 	},
 	{"rainbowhxch/accelerated-jk.nvim",
@@ -257,7 +262,7 @@ return
             	layout = { preset = "vertical" },
         	},
         	    dashboard = {
-                enabled = true,
+                enabled = false,
                 row = 10,
                 preset = {
                     keys = {
