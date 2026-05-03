@@ -131,7 +131,9 @@ return
         config = function()
             local lspconfig = require("lspconfig")
             -- 1. Lua LSの設定 (vim変数を認識させる)
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             lspconfig.lua_ls.setup({
+                capabilities=capabilities,
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -141,10 +143,10 @@ return
                 },
             })
             -- 2. C/C++ (clangd) の設定
-            lspconfig.clangd.setup({})
+            lspconfig.clangd.setup({capabilities=capabilities})
 
             -- 3. Go (gopls) の設定
-            lspconfig.gopls.setup({})
+            lspconfig.gopls.setup({capabilities=capabilities})
 
             -- 3. エラー表示の見た目設定
             vim.diagnostic.config({
@@ -320,6 +322,40 @@ return
 	-- 			}
 	-- 		end,
 	-- },
+	{"saghen/blink.cmp",
+		version="*",
+		opts={
+			keymap={
+				preset="super-tab",
+				["<C-u>"]={"scroll_documentation_up","fallback"},
+				["<C-d>"]={"scroll_documentation_down","fallback"},
+				["<C-b>"]={},
+				["<C-f>"]={},
+			},
+			sources={
+				default={"lsp","path","buffer"},
+			},
+		},
+	},
+	{"stevearc/conform.nvim",
+		event="BufWritePre",
+		opts={
+			formatters_by_ft={
+				c={"c_formatter_42"},
+				cpp={"clang_format"},
+				go={"goimports"},
+			},
+			formatters={
+				clang_format={
+					prepend_args={"--style=Google"},
+				},
+			},
+			format_on_save={
+				timeout_ms=500,
+				lsp_fallback=false,
+			},
+		},
+	},
 	{"numToStr/Comment.nvim",
 			opts={
 			}
