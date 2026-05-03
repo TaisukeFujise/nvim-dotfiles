@@ -230,7 +230,7 @@ return
         keys = {
             { "<leader>ff", function() require("snacks").picker.files({cwd=vim.fn.expand("%:p:h")})    end, desc = "Find files" },
             { "<leader>fg", function() require("snacks").picker.grep({cwd=vim.fn.expand("%:p:h")})     end, desc = "Live grep" },
-            -- { "<leader>fb", function() require("snacks").picker.buffers()  end, desc = "Buffers" },
+            { "<leader>fb", function() require("snacks").picker.buffers()  end, desc = "Buffers" },
             { "<leader>fr", function() require("snacks").picker.recent()   end, desc = "Recent files" },
 			{ "<leader>fp", function() require("snacks").picker.projects()   end, desc = "Projects(Oil)"},
             { "<leader>fe", function() require("snacks").picker.explorer({cwd=vim.fn.expand("%:p:h")}) end, desc = "Explorer" },
